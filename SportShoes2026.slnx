@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="SportShoes2026.consola/SportShoes2026.consola.csproj" Id="ed97bced-fb79-43af-bb1d-df2cd4be8bd8" />
+  <Project Path="SportShoes2026.Data/SportShoes2026.Data.csproj" />
+  <Project Path="SportShoes2026.Entities/SportShoes2026.Entities.csproj" />
+  <Project Path="SportShoes2026.IoC/SportShoes2026.IoC.csproj" Id="1f0c4dfc-ada2-4275-89ca-8405e37430e8" />
+  <Project Path="SportShoes2026.Service/SportShoes2026.Service.csproj" Id="ce23a9fb-7605-4ec4-8ce8-2d3121c46fe1" />
+</Solution>
