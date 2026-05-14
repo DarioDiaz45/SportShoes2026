@@ -126,7 +126,7 @@ internal class Program
 
         Console.WriteLine();
 
-        Console.Write("Id: ");
+        Console.Write("Select Sport Shoe Id: ");
 
         int id = int.Parse(
             Console.ReadLine()!);
@@ -187,7 +187,7 @@ internal class Program
         else
         {
             Console.WriteLine(
-                "Deleted correctly");
+                "Deleted correctly Shoe!!");
         }
         Console.ReadLine();
     }
@@ -200,7 +200,7 @@ internal class Program
 
         Console.WriteLine();
 
-        Console.Write("Id: ");
+        Console.Write("Select Id: ");
 
         int id = int.Parse(
             Console.ReadLine()!);
@@ -245,7 +245,7 @@ internal class Program
         else
         {
             Console.WriteLine(
-                "Updated correctly");
+                "Updated correctly Shoe!!");
         }
         Console.ReadLine();
 
@@ -254,17 +254,17 @@ internal class Program
     private static void AddSportShoe(ISportShoeService service,IBrandService brandService,ISizeService sizeService,ISportService sportService)
     {
         Console.Clear();
-        Console.WriteLine("--- Agregar Nueva Zapatilla ---");
+        Console.WriteLine("=====Add New Shoe=====");
 
         var dto = new SportShoeCreateDto();
 
-        Console.Write("Modelo: ");
+        Console.Write("Model: ");
         dto.Model = Console.ReadLine()!;
 
-        Console.Write("Precio: ");
+        Console.Write("Price: ");
         if (!decimal.TryParse(Console.ReadLine(), out decimal price))
         {
-            Console.WriteLine("Precio no válido.");
+            Console.WriteLine("Invalid price!!!.");
             return;
         }
         dto.Price = price;
@@ -273,7 +273,7 @@ internal class Program
         dto.ReleaseDate = DateTime.Now;
 
         
-        Console.WriteLine("\nGÉNEROS");
+        Console.WriteLine("=====GENDERS=====");
         var genreResult = service.GetGenres();
         if (genreResult.IsSuccess)
         {
@@ -282,11 +282,11 @@ internal class Program
                 Console.WriteLine($"{genre.GenreId} - {genre.GenreName}");
             }
         }
-        Console.Write("Seleccione ID de Género: ");
+        Console.Write("Select Gender ID: ");
         dto.GenreId = int.Parse(Console.ReadLine()!);
 
         
-        Console.WriteLine("\nMARCAS");
+        Console.WriteLine("=====BRANDS=====");
         var brandResult = brandService.GetAll();
         if (brandResult.IsSuccess)
         {
@@ -295,11 +295,11 @@ internal class Program
                 Console.WriteLine($"{brand.BrandId} - {brand.BrandName}");
             }
         }
-        Console.Write("Seleccione ID de Marca: ");
+        Console.Write("Select Brand ID: ");
         dto.BrandId = int.Parse(Console.ReadLine()!);
 
         
-        Console.WriteLine("\nTALLLES");
+        Console.WriteLine("=====BRANDS=====");
         var sizeResult = sizeService.GetAll();
         if (sizeResult.IsSuccess)
         {
@@ -308,14 +308,14 @@ internal class Program
                 Console.WriteLine($"{size.SizeId} - {size.Number}");
             }
         }
-        Console.Write("Seleccione ID de Talle: ");
+        Console.Write("Select Size ID: ");
         dto.SizeId = int.Parse(Console.ReadLine()!);
 
         Console.Write("Description: "); 
         dto.Description = Console.ReadLine()!;
 
         
-        Console.WriteLine("\nDEPORTES");
+        Console.WriteLine("=====SPORTS=====");
         var sportResult = sportService.GetAll();
         if (sportResult.IsSuccess)
         {
@@ -324,23 +324,23 @@ internal class Program
                 Console.WriteLine($"{sport.SportId} - {sport.SportName}");
             }
         }
-        Console.Write("Seleccione ID de Deporte: ");
+        Console.Write("Select Sport ID: ");
         dto.SportId = int.Parse(Console.ReadLine()!);
 
-        // LLAMADA AL SERVICIO PARA GUARDAR
+        
         var result = service.Add(dto);
 
         if (result.IsFailure)
         {
-            // Método que muestra los errores del Result Pattern
+            
             ShowErrors(result.Errors);
         }
         else
         {
-            Console.WriteLine("\n¡Zapatilla agregada con éxito!");
+            Console.WriteLine("Shoe successfully added!!!");
         }
 
-        Console.WriteLine("\nPresione Enter para continuar...");
+        Console.WriteLine("Press Enter to continue...");
         Console.ReadLine();
     }
 
@@ -382,7 +382,7 @@ internal class Program
         {
             Console.Clear();
 
-            Console.WriteLine("SIZES");
+            Console.WriteLine("=====SIZES=====");
             Console.WriteLine("1 - List Sizes");
             Console.WriteLine("2 - Update Size");
             Console.WriteLine("0 - Back");
@@ -589,7 +589,7 @@ internal class Program
 
         var dto = new SportCreateDto();
 
-        Console.Write("Name: ");
+        Console.Write("Name Sport: ");
         dto.SportName = Console.ReadLine() ?? "";
 
         var result = service.Add(dto);
@@ -614,7 +614,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Delete Sport");
+        Console.WriteLine("Delete Sport Correctly!!");
         Console.WriteLine();
 
         var sportsResult = service.GetAll();
@@ -637,7 +637,7 @@ internal class Program
 
         if (!int.TryParse(Console.ReadLine(), out int id))
         {
-            Console.WriteLine("Invalid Id");
+            Console.WriteLine("Invalid Id!!!");
             Pause();
             return;
         }
@@ -651,7 +651,7 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Sport deleted");
+            Console.WriteLine("Sport deleted!!!");
         }
 
         Pause();
@@ -777,9 +777,7 @@ internal class Program
         } while (true);
     }
 
-    // ====================================================
-    // LIST
-    // ====================================================
+   
 
     private static void ListBrands(
         IBrandService service)

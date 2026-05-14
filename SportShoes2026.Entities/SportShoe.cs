@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace SportShoes2026.Entities
+﻿namespace SportShoes2026.Entities
 {
     public class SportShoe
     {
@@ -8,7 +6,7 @@ namespace SportShoes2026.Entities
 
         public string Model { get; set; } = null!;
 
-        
+
         public string Description { get; set; } = null!;
 
         public decimal Price { get; set; }
@@ -16,16 +14,16 @@ namespace SportShoes2026.Entities
         public bool Active { get; set; } = true;
 
         public int BrandId { get; set; }
-        public virtual Brand Brand { get; set; } = null!;
+        public Brand Brand { get; set; } = null!;
 
         public int SportId { get; set; }
-        public virtual Sport Sport { get; set; } = null!;
+        public Sport Sport { get; set; } = null!;
 
-       
+
         public int GenreId { get; set; }
-        public virtual Genre Genre { get; set; } = null!;
+        public Genre Genre { get; set; } = null!;
 
         public int SizeId { get; set; }
-        public virtual SiZe Size { get; set; } = null!;
+        public SiZe Size { get; set; } = null!;
     }
 }
