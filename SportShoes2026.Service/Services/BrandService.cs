@@ -8,7 +8,7 @@ using SportShoes2026.Service.Mappers;
 
 namespace SportShoes2026.Service.Services
 {
-    public class BrandService: IBrandService
+    public class BrandService : IBrandService
     {
         private readonly IUnitOfWork _uow;
 
@@ -135,5 +135,5 @@ namespace SportShoes2026.Service.Services
             }
         }
     }
-    
+
 }

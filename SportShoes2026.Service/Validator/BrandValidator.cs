@@ -3,7 +3,7 @@ using SportShoes2026.Entities;
 
 namespace SportShoes2026.Service.Validator
 {
-    public class BrandValidator:AbstractValidator<Brand>
+    public class BrandValidator : AbstractValidator<Brand>
     {
         public BrandValidator()
         {
@@ -11,7 +11,7 @@ namespace SportShoes2026.Service.Validator
                 .NotEmpty()
                 .MaximumLength(50);
 
-           
+
         }
     }
 }

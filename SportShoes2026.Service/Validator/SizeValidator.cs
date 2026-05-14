@@ -3,7 +3,7 @@ using SportShoes2026.Entities;
 
 namespace SportShoes2026.Service.Validator
 {
-    public class SizeValidator:AbstractValidator<SiZe>
+    public class SizeValidator : AbstractValidator<SiZe>
     {
         public SizeValidator()
         {

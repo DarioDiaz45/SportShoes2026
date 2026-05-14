@@ -9,12 +9,12 @@ using System.Drawing;
 
 namespace SportShoes2026.Service.Services
 {
-    public class SizeService:ISizeService
+    public class SizeService : ISizeService
     {
         private readonly IUnitOfWork _uow;
         private readonly IValidator<SiZe> _validator;
 
-        public SizeService( IUnitOfWork uow,IValidator<SiZe> validator)
+        public SizeService(IUnitOfWork uow, IValidator<SiZe> validator)
         {
             _uow = uow;
             _validator = validator;

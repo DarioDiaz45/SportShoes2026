@@ -251,7 +251,7 @@ internal class Program
 
     }
 
-    private static void AddSportShoe(ISportShoeService service,IBrandService brandService,ISizeService sizeService,ISportService sportService)
+    private static void AddSportShoe(ISportShoeService service, IBrandService brandService, ISizeService sizeService, ISportService sportService)
     {
         Console.Clear();
         Console.WriteLine("=====Add New Shoe=====");
@@ -269,10 +269,10 @@ internal class Program
         }
         dto.Price = price;
 
-        
+
         dto.ReleaseDate = DateTime.Now;
 
-        
+
         Console.WriteLine("=====GENDERS=====");
         var genreResult = service.GetGenres();
         if (genreResult.IsSuccess)
@@ -285,7 +285,7 @@ internal class Program
         Console.Write("Select Gender ID: ");
         dto.GenreId = int.Parse(Console.ReadLine()!);
 
-        
+
         Console.WriteLine("=====BRANDS=====");
         var brandResult = brandService.GetAll();
         if (brandResult.IsSuccess)
@@ -298,7 +298,7 @@ internal class Program
         Console.Write("Select Brand ID: ");
         dto.BrandId = int.Parse(Console.ReadLine()!);
 
-        
+
         Console.WriteLine("=====BRANDS=====");
         var sizeResult = sizeService.GetAll();
         if (sizeResult.IsSuccess)
@@ -311,10 +311,10 @@ internal class Program
         Console.Write("Select Size ID: ");
         dto.SizeId = int.Parse(Console.ReadLine()!);
 
-        Console.Write("Description: "); 
+        Console.Write("Description: ");
         dto.Description = Console.ReadLine()!;
 
-        
+
         Console.WriteLine("=====SPORTS=====");
         var sportResult = sportService.GetAll();
         if (sportResult.IsSuccess)
@@ -327,12 +327,12 @@ internal class Program
         Console.Write("Select Sport ID: ");
         dto.SportId = int.Parse(Console.ReadLine()!);
 
-        
+
         var result = service.Add(dto);
 
         if (result.IsFailure)
         {
-            
+
             ShowErrors(result.Errors);
         }
         else
@@ -777,7 +777,7 @@ internal class Program
         } while (true);
     }
 
-   
+
 
     private static void ListBrands(
         IBrandService service)

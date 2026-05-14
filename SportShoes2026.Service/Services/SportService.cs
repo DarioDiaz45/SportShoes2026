@@ -11,7 +11,7 @@ using System.Text;
 
 namespace SportShoes2026.Service.Services
 {
-    public class SportService:ISportService
+    public class SportService : ISportService
     {
         private readonly IUnitOfWork _uow;
 

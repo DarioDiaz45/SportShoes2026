@@ -7,7 +7,7 @@ namespace SportShoes2026.Service.Interfaces
     {
         Result<List<SizeListDto>> GetAll();
 
-        Result<SizeUpdateDto>GetForUpdate(int id);
+        Result<SizeUpdateDto> GetForUpdate(int id);
 
         Result Update(SizeUpdateDto dto);
     }

@@ -16,6 +16,6 @@ namespace SportShoes2026.Data.Interfaces
 
         void Delete(int id);
 
-        bool ExistSameSportShoe(string model, int brandId,int sizeId,int? sportShoeId = null);
+        bool ExistSameSportShoe(string model, int brandId, int sizeId, int? sportShoeId = null);
     }
 }

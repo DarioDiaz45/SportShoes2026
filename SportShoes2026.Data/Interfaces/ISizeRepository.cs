@@ -13,7 +13,7 @@ namespace SportShoes2026.Data.Interfaces
 
         void Update(SiZe size);
 
-        bool ExistSameNumber(decimal number,int? sizeId = null);
+        bool ExistSameNumber(decimal number, int? sizeId = null);
     }
 }
 

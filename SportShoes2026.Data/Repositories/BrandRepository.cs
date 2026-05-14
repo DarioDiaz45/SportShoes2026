@@ -4,7 +4,7 @@ using SportShoes2026.Entities;
 
 namespace SportShoes2026.Data.Repositories
 {
-    public class BrandRepository:IBrandRepository
+    public class BrandRepository : IBrandRepository
     {
         private readonly ShoesDbContext _context;
         public BrandRepository(ShoesDbContext context)

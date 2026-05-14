@@ -6,6 +6,6 @@
 
         public string BrandName { get; set; } = null!;
 
-       
+
     }
 }

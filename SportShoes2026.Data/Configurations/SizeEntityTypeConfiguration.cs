@@ -4,7 +4,7 @@ using SportShoes2026.Entities;
 
 namespace SportShoes2026.Data.Configurations
 {
-    public class SizeEntityTypeConfiguration:IEntityTypeConfiguration<SiZe>
+    public class SizeEntityTypeConfiguration : IEntityTypeConfiguration<SiZe>
     {
         public void Configure(EntityTypeBuilder<SiZe> builder)
         {

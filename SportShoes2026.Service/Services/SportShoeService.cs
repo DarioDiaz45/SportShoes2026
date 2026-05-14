@@ -23,7 +23,7 @@ namespace SportShoes2026.Service.Services
         }
 
 
-        public Result<List<SportShoeListDto>>GetAll()
+        public Result<List<SportShoeListDto>> GetAll()
         {
             var shoes = _uow.SportShoes
                 .GetAll()

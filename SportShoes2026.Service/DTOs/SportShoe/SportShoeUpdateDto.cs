@@ -12,11 +12,8 @@
 
         public int BrandId { get; set; }
 
-        
-
         public int SportId { get; set; }
 
-        
         public int GenreId { get; set; }
     }
 }

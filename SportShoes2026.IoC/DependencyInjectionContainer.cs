@@ -32,6 +32,7 @@ namespace SportShoes2026.IoC
             services.AddScoped<ISizeRepository, SizeRepository>();
 
             services.AddScoped<ISportShoeRepository, SportShoeRepository>();
+
             services.AddScoped<IGenreRepository, GenreRepository>();
 
 
@@ -45,9 +46,7 @@ namespace SportShoes2026.IoC
 
             services.AddScoped<ISportShoeService, SportShoeService>();
 
-            // =================================================
-            // VALIDATORS
-            // =================================================
+
 
             services.AddScoped<IValidator<Brand>, BrandValidator>();
 

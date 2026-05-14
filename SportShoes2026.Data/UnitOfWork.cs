@@ -7,12 +7,12 @@ namespace SportShoes2026.Data
     {
         private readonly ShoesDbContext _context;
 
-        public UnitOfWork(ShoesDbContext context, IBrandRepository brands, ISportRepository sports,ISizeRepository sizes, ISportShoeRepository sportShoes, IGenreRepository genres)
+        public UnitOfWork(ShoesDbContext context, IBrandRepository brands, ISportRepository sports, ISizeRepository sizes, ISportShoeRepository sportShoes, IGenreRepository genres)
         {
             _context = context;
             Brands = brands;
             Sports = sports;
-            Sizes= sizes;
+            Sizes = sizes;
             SportShoes = sportShoes;
             Genres = genres;
 
@@ -23,7 +23,7 @@ namespace SportShoes2026.Data
         public ISportRepository Sports { get; }
 
         public ISizeRepository Sizes { get; }
-        
+
         public ISportShoeRepository SportShoes { get; }
         public IGenreRepository Genres { get; }
 

@@ -4,7 +4,7 @@ using SportShoes2026.Entities;
 
 namespace SportShoes2026.Data
 {
-    public class ShoesDbContext:DbContext
+    public class ShoesDbContext : DbContext
     {
         public DbSet<Brand> Brands { get; set; }
 

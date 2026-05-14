@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SportShoes2026.Data.Repositories
 {
-    public class SportRepository:ISportRepository
+    public class SportRepository : ISportRepository
     {
         private readonly ShoesDbContext _context;
         public SportRepository(ShoesDbContext context)
@@ -49,7 +49,7 @@ namespace SportShoes2026.Data.Repositories
         {
             return _context.Sports.Find(id);
         }
-        
+
 
         public bool HasSportShoes(int id)
         {
