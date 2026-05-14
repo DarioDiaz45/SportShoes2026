@@ -14,9 +14,7 @@ namespace SportShoes2026.Service.Services
         private readonly IValidator<SportShoe>
             _validator;
 
-        public SportShoeService(
-            IUnitOfWork uow,
-            IValidator<SportShoe> validator)
+        public SportShoeService(IUnitOfWork uow,IValidator<SportShoe> validator)
         {
             _uow = uow;
             _validator = validator;
@@ -35,7 +33,7 @@ namespace SportShoes2026.Service.Services
                     BrandName = s.Brand.BrandName,
                     GenreName = s.Genre.GenreName,
                     SportName = s.Sport.SportName,
-                    SizeNumber = s.Size != null ? s.Size.SizeNumber : 0
+                    SizeNumber = s.Size.SizeNumber
                 })
                 .ToList();
 
@@ -44,8 +42,7 @@ namespace SportShoes2026.Service.Services
         }
 
 
-        public Result<SportShoeDetailsDto>
-            GetDetails(int id)
+        public Result<SportShoeDetailsDto>GetDetails(int id)
         {
             var shoe = _uow.SportShoes
                 .Query()
@@ -57,23 +54,21 @@ namespace SportShoes2026.Service.Services
                     Price = s.Price,
                     BrandName = s.Brand.BrandName,
                     GenreName = s.Genre.GenreName,
-                    SportName = s.Sport.SportName
+                    SportName = s.Sport.SportName,
+                    SizeNumber = s.Size.SizeNumber
                 })
                 .FirstOrDefault();
 
             if (shoe == null)
             {
-                return Result<SportShoeDetailsDto>
-                    .Failure("Sport shoe not found");
+                return Result<SportShoeDetailsDto>.Failure("Sport shoe not found");
             }
 
-            return Result<SportShoeDetailsDto>
-                .Success(shoe);
+            return Result<SportShoeDetailsDto>.Success(shoe);
         }
 
 
-        public Result Add(
-            SportShoeCreateDto dto)
+        public Result Add(SportShoeCreateDto dto)
         {
             var shoe = new SportShoe
             {
@@ -149,8 +144,7 @@ namespace SportShoes2026.Service.Services
         }
 
 
-        public Result<SportShoeUpdateDto>
-            GetForUpdate(int id)
+        public Result<SportShoeUpdateDto>GetForUpdate(int id)
         {
             var shoe =
                 _uow.SportShoes.GetById(id);
@@ -176,8 +170,7 @@ namespace SportShoes2026.Service.Services
         }
 
 
-        public Result Update(
-            SportShoeUpdateDto dto)
+        public Result Update(SportShoeUpdateDto dto)
         {
             var shoe =
                 _uow.SportShoes.GetById(

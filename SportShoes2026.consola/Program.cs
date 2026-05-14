@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.DependencyInjection;
+using SportShoes2026.Entities;
 using SportShoes2026.IoC;
 using SportShoes2026.Service.DTOs.Brand;
 using SportShoes2026.Service.DTOs.Sport;
@@ -21,7 +22,7 @@ internal class Program
         {
             Console.Clear();
 
-            Console.WriteLine("SPORT SHOES MANAGER");
+            Console.WriteLine("========SPORT SHOES MANAGER=========");
             Console.WriteLine("1. Brands");
             Console.WriteLine("2. Sports");
             Console.WriteLine("3. Size");
@@ -78,11 +79,11 @@ internal class Program
             Console.Clear();
 
             Console.WriteLine("SPORT SHOES");
-            Console.WriteLine("1 - List");
-            Console.WriteLine("2 - Add");
-            Console.WriteLine("3 - Update");
-            Console.WriteLine("4 - Delete");
-            Console.WriteLine("5 - Details");
+            Console.WriteLine("1 - List The Shoes");
+            Console.WriteLine("2 - Add The Shoes");
+            Console.WriteLine("3 - Update The Shoes");
+            Console.WriteLine("4 - Delete The Shoes");
+            Console.WriteLine("5 - Details The Shoes");
             Console.WriteLine("0 - Back");
 
             Console.Write("Option: ");
@@ -143,23 +144,15 @@ internal class Program
         var shoe = result.Value!;
 
         Console.WriteLine();
-        Console.WriteLine(
-            $"Model: {shoe.Model}");
+        Console.WriteLine($"Model: {shoe.Model}");
 
-        Console.WriteLine(
-            $"Brand: {shoe.BrandName}");
+        Console.WriteLine($"Brand: {shoe.BrandName}");
 
-        Console.WriteLine(
-            $"Sport: {shoe.SportName}");
+        Console.WriteLine($"Sport: {shoe.SportName}");
 
-        Console.WriteLine(
-            $"Size: {shoe.SizeNumber}");
+        Console.WriteLine($"Size: {shoe.SizeNumber}");
 
-        Console.WriteLine(
-            $"Price: {shoe.Price}");
-
-        Console.WriteLine(
-            $"Release: {shoe.ReleaseDate:d}");
+        Console.WriteLine($"Price: {shoe.Price}");
 
         Console.ReadLine();
 
@@ -173,7 +166,7 @@ internal class Program
 
         Console.WriteLine();
 
-        Console.Write("Id: ");
+        Console.Write("Select Id Sport Shoe : ");
 
         int id = int.Parse(
             Console.ReadLine()!);
@@ -195,18 +188,11 @@ internal class Program
     private static void UpdateSportShoe(ISportShoeService service, IBrandService brandService, ISizeService sizeService, ISportService sportService)
     {
         Console.Clear();
-
         ListSportShoes(service);
+        Console.Write("Select Id Sport Shoe : ");
+        int id = int.Parse(Console.ReadLine()!);
 
-        Console.WriteLine();
-
-        Console.Write("Select Id: ");
-
-        int id = int.Parse(
-            Console.ReadLine()!);
-
-        var resultDto =
-            service.GetForUpdate(id);
+        var resultDto =service.GetForUpdate(id);
 
         if (resultDto.IsFailure)
         {
@@ -216,8 +202,7 @@ internal class Program
 
         var dto = resultDto.Value!;
 
-        Console.Write(
-            $"Model ({dto.Model}): ");
+        Console.Write($"Model ({dto.Model}): ");
 
         var model = Console.ReadLine();
 
@@ -226,8 +211,7 @@ internal class Program
             dto.Model = model;
         }
 
-        Console.Write(
-            $"Price ({dto.Price}): ");
+        Console.Write($"Price ({dto.Price}): ");
 
         if (decimal.TryParse(
             Console.ReadLine(),
@@ -244,8 +228,7 @@ internal class Program
         }
         else
         {
-            Console.WriteLine(
-                "Updated correctly Shoe!!");
+            Console.WriteLine("Updated correctly Shoe!!");
         }
         Console.ReadLine();
 
@@ -258,13 +241,13 @@ internal class Program
 
         var dto = new SportShoeCreateDto();
 
-        Console.Write("Model: ");
+        Console.Write("Add The Model: ");
         dto.Model = Console.ReadLine()!;
 
-        Console.Write("Price: ");
+        Console.Write("Add The Price: ");
         if (!decimal.TryParse(Console.ReadLine(), out decimal price))
         {
-            Console.WriteLine("Invalid price!!!.");
+            Console.WriteLine("Invalid price, Try Again!!!.");
             return;
         }
         dto.Price = price;
@@ -305,7 +288,7 @@ internal class Program
         {
             foreach (var size in sizeResult.Value!)
             {
-                Console.WriteLine($"{size.SizeId} - {size.Number}");
+                Console.WriteLine($"{size.SizeId} | {size.Number}");
             }
         }
         Console.Write("Select Size ID: ");
@@ -321,7 +304,7 @@ internal class Program
         {
             foreach (var sport in sportResult.Value!)
             {
-                Console.WriteLine($"{sport.SportId} - {sport.SportName}");
+                Console.WriteLine($"{sport.SportId} | {sport.SportName}");
             }
         }
         Console.Write("Select Sport ID: ");
@@ -356,16 +339,27 @@ internal class Program
             return;
         }
 
+        Console.WriteLine(
+            $"{"Id",-5} | " +
+            $"{"Model",-20} | " +
+            $"{"Brand",-15} | " +
+            $"{"Sport",-15} | " +
+            $"{"Size",-10} | " +
+            $"{"Price",-10}");
+
+        Console.WriteLine(new string('-', 85));
+
         foreach (var shoe in result.Value!)
         {
             Console.WriteLine(
-                $"Id: {shoe.SportShoeId,-5}" +
-                $"Model: {shoe.Model,-20}" +
-                $"Brand: {shoe.BrandName,-15}" +
-                $"Sport: {shoe.SportName,-15}" +
-                $"Size: {shoe.SizeNumber,-10}" +
-                $"Price: {shoe.Price}");
+                $"{shoe.SportShoeId,-5} | " +
+                $"{shoe.Model,-20} | " +
+                $"{shoe.BrandName,-15} | " +
+                $"{shoe.SportName,-15} | " +
+                $"{shoe.SizeNumber,-10} | " +
+                $"{shoe.Price,-10:C}");
         }
+
         Console.ReadLine();
     }
 
@@ -412,7 +406,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("UPDATE SIZE");
+        Console.WriteLine("====UPDATE SIZE====");
         Console.WriteLine();
 
         var sizesResult = service.GetAll();
@@ -425,8 +419,7 @@ internal class Program
 
         foreach (var size in sizesResult.Value!)
         {
-            Console.WriteLine(
-                $"{size.SizeId} - {size.Number}");
+            Console.WriteLine($"[ID: {size.SizeId}] | Number: {size.Number,-10}");
         }
 
         Console.WriteLine();
@@ -450,8 +443,7 @@ internal class Program
 
         var dto = sizeResult.Value!;
 
-        Console.Write(
-            $"Number ({dto.Number}): ");
+        Console.Write($"Number ({dto.Number}): ");
 
         if (decimal.TryParse(
             Console.ReadLine(),
@@ -469,7 +461,7 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Size updated");
+            Console.WriteLine("Size updated!!!");
         }
 
         Console.ReadLine();
@@ -479,7 +471,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("LIST OF SIZES");
+        Console.WriteLine("====LIST OF SIZES====");
         Console.WriteLine();
 
         var result = service.GetAll();
@@ -492,9 +484,7 @@ internal class Program
 
         foreach (var size in result.Value!)
         {
-            Console.WriteLine(
-                $"Id: {size.SizeId,-5}" +
-                $"Number: {size.Number,-10}");
+            Console.WriteLine($"[ID: {size.SizeId}] | Number: {size.Number,-10}");
         }
         Console.ReadLine();
     }
@@ -514,7 +504,7 @@ internal class Program
         {
             Console.Clear();
 
-            Console.WriteLine("SPORTS");
+            Console.WriteLine("=====SPORTS=====");
             Console.WriteLine("1 - List Sports");
             Console.WriteLine("2 - Add Sport");
             Console.WriteLine("3 - Delete Sport");
@@ -569,9 +559,7 @@ internal class Program
 
         foreach (var sport in result.Value!)
         {
-            Console.WriteLine(
-                $"Id: {sport.SportId,-5}" +
-                $"Name: {sport.SportName,-20}");
+            Console.WriteLine($"[ID: {sport.SportId}] | Name: {sport.SportName,-20}");
         }
 
         Pause();
@@ -584,7 +572,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Add Sport");
+        Console.WriteLine("====Add Sport====");
         Console.WriteLine();
 
         var dto = new SportCreateDto();
@@ -601,7 +589,7 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Sport added successfully");
+            Console.WriteLine("Sport added successfully!!!");
         }
 
         Pause();
@@ -614,7 +602,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Delete Sport Correctly!!");
+        Console.WriteLine("====Delete Sport====");
         Console.WriteLine();
 
         var sportsResult = service.GetAll();
@@ -627,8 +615,7 @@ internal class Program
 
         foreach (var sport in sportsResult.Value!)
         {
-            Console.WriteLine(
-                $"{sport.SportId} - {sport.SportName}");
+            Console.WriteLine($"[ID: {sport.SportId}] | Name: {sport.SportName,-20}");
         }
 
         Console.WriteLine();
@@ -637,7 +624,7 @@ internal class Program
 
         if (!int.TryParse(Console.ReadLine(), out int id))
         {
-            Console.WriteLine("Invalid Id!!!");
+            Console.WriteLine("Invalid Id Try Again!!!");
             Pause();
             return;
         }
@@ -664,7 +651,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Update Sport");
+        Console.WriteLine("====Update Sport====");
         Console.WriteLine();
 
         var sportsResult = service.GetAll();
@@ -678,7 +665,7 @@ internal class Program
         foreach (var sport in sportsResult.Value!)
         {
             Console.WriteLine(
-                $"{sport.SportId} - {sport.SportName}");
+                $"{sport.SportId} | {sport.SportName,-20}");
         }
 
         Console.WriteLine();
@@ -721,7 +708,7 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Sport updated");
+            Console.WriteLine("Sport updated!!!");
         }
 
         Pause();
@@ -797,9 +784,7 @@ internal class Program
 
         foreach (var brand in result.Value!)
         {
-            Console.WriteLine(
-                $"Id: {brand.BrandId,-5}" +
-                $"Name: {brand.BrandName,-20}");
+            Console.WriteLine($"[ID: {brand.BrandId}] | Name: {brand.BrandName,-20}");
         }
 
         Pause();
@@ -812,12 +797,12 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Add Brand");
+        Console.WriteLine("====Add Brand====");
         Console.WriteLine();
 
         var dto = new BrandCreateDto();
 
-        Console.Write("Name: ");
+        Console.Write("Brand name: ");
         dto.BrandName = Console.ReadLine() ?? "";
 
         var result = service.Add(dto);
@@ -829,20 +814,19 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Brand added successfully");
+            Console.WriteLine("Brand added successfully!!");
         }
 
-        Pause();
+        Console.ReadLine();
     }
 
 
 
-    private static void DeleteBrand(
-        IBrandService service)
+    private static void DeleteBrand(IBrandService service)
     {
         Console.Clear();
 
-        Console.WriteLine("Delete Brand");
+        Console.WriteLine("====Delete Brand====");
         Console.WriteLine();
 
         var brandsResult = service.GetAll();
@@ -856,16 +840,16 @@ internal class Program
         foreach (var brand in brandsResult.Value!)
         {
             Console.WriteLine(
-                $"{brand.BrandId} - {brand.BrandName}");
+                $"[{brand.BrandId}] | {brand.BrandName}");
         }
 
         Console.WriteLine();
 
-        Console.Write("Brand Id: ");
+        Console.Write("Enter the brand ID: ");
 
         if (!int.TryParse(Console.ReadLine(), out int id))
         {
-            Console.WriteLine("Invalid Id");
+            Console.WriteLine("Invalid ID, please try again");
             Pause();
             return;
         }
@@ -879,7 +863,7 @@ internal class Program
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Brand deleted");
+            Console.WriteLine("Brand erased correctly!!");
         }
 
         Pause();
@@ -892,7 +876,7 @@ internal class Program
     {
         Console.Clear();
 
-        Console.WriteLine("Update Brand");
+        Console.WriteLine("====Update Brand====");
         Console.WriteLine();
 
         var brandsResult = service.GetAll();
@@ -906,16 +890,16 @@ internal class Program
         foreach (var brand in brandsResult.Value!)
         {
             Console.WriteLine(
-                $"{brand.BrandId} - {brand.BrandName}");
+                $"[{brand.BrandId}] | {brand.BrandName}");
         }
 
         Console.WriteLine();
 
-        Console.Write("Brand Id: ");
+        Console.Write("Enter the brand ID: ");
 
         if (!int.TryParse(Console.ReadLine(), out int id))
         {
-            Console.WriteLine("Invalid Id");
+            Console.WriteLine("Invalid ID, please try again");
             Pause();
             return;
         }
@@ -976,7 +960,7 @@ internal class Program
     private static void Pause()
     {
         Console.WriteLine();
-        Console.WriteLine("Press any key...");
+        Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
 }
