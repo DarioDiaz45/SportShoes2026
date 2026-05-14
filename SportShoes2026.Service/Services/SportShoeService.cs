@@ -214,7 +214,7 @@ namespace SportShoes2026.Service.Services
                     shoe.ShoeId))
             {
                 return Result.Failure(
-                    "Sport shoe already exists");
+                    "Sport shoe already exists!!");
             }
 
             try
