@@ -17,5 +17,17 @@ namespace SportShoes2026.Data.Interfaces
         void Delete(int id);
 
         bool ExistSameSportShoe(string model, int brandId, int sizeId, int? sportShoeId = null);
+
+        List<SportShoe> GetByBrand(int brandId);
+
+        List<SportShoe> GetBySport(int sportId);
+
+        List<SportShoe> GetBySize(int sizeId);
+
+        List<SportShoe> OrderByModel();
+
+        List<SportShoe> OrderByPrice();
+
+        List<SportShoe> OrderByBrand();
     }
 }

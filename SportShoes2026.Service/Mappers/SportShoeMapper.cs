@@ -15,7 +15,8 @@ namespace SportShoes2026.Service.Mappers
                 Price = shoe.Price,
                 BrandName = shoe.Brand.BrandName,
                 GenreName = shoe.Genre.GenreName,
-                SportName = shoe.Sport.SportName
+                SportName = shoe.Sport.SportName,
+                SizeNumber = shoe.Size.SizeNumber
             };
         }
 

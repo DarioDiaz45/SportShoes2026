@@ -56,14 +56,83 @@ namespace SportShoes2026.Data.Repositories
             .ToList();
         }
 
+        public List<SportShoe> GetByBrand(int brandId)
+        {
+                return _context.SportShoes.Include(s => s.Brand)
+                    .Include(s => s.Size)
+                    .Include(s => s.Sport)
+                    .Include(s => s.Genre)
+                    .Where(s =>s.BrandId == brandId &&s.Active)
+                    .AsNoTracking()
+                    .ToList();
+        }
+
         public SportShoe? GetById(int id)
         {
             return _context.SportShoes
                 .Include(s => s.Brand)
                 .Include(s => s.Genre)
                 .Include(s => s.Sport)
-                .FirstOrDefault(
-                    s => s.ShoeId == id);
+                .FirstOrDefault(s => s.ShoeId == id);
+        }
+
+        public List<SportShoe> GetBySize(int sizeId)
+        {
+            return _context.SportShoes.Include(s => s.Brand)
+                .Include(s => s.Size)
+                .Include(s => s.Sport)
+                .Include(s => s.Genre)
+                .Where(s =>s.SizeId == sizeId &&s.Active)
+                .AsNoTracking()
+                .ToList();
+
+        }
+
+        public List<SportShoe> GetBySport(int sportId)
+        {
+            return _context.SportShoes.Include(s => s.Brand)
+                .Include(s => s.Size)
+                .Include(s => s.Sport)
+                .Include(s => s.Genre)
+                .Where(s => s.SportId == sportId &&s.Active)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public List<SportShoe> OrderByBrand()
+        {
+            return _context.SportShoes.Include(s => s.Brand)
+                .Include(s => s.Size)
+                .Include(s => s.Sport)
+                .Include(s => s.Genre)
+                .Where(s => s.Active)
+                .OrderBy(s => s.Brand.BrandName)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public List<SportShoe> OrderByModel()
+        {
+            return _context.SportShoes.Include(s => s.Brand)
+                .Include(s => s.Size)
+                .Include(s => s.Sport)
+                .Include(s => s.Genre)
+                .Where(s => s.Active)
+                .OrderBy(s => s.Model)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public List<SportShoe> OrderByPrice()
+        {
+            return _context.SportShoes.Include(s => s.Brand)
+                    .Include(s => s.Size)
+                    .Include(s => s.Sport)
+                    .Include(s => s.Genre)
+                    .Where(s => s.Active)
+                    .OrderBy(s => s.Price)
+                    .AsNoTracking()
+                    .ToList();
         }
 
         public IQueryable<SportShoe> Query()

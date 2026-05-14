@@ -84,6 +84,7 @@ internal class Program
             Console.WriteLine("3 - Update The Shoes");
             Console.WriteLine("4 - Delete The Shoes");
             Console.WriteLine("5 - Details The Shoes");
+            Console.WriteLine("6 - Filters & Reports");
             Console.WriteLine("0 - Back");
 
             Console.Write("Option: ");
@@ -111,12 +112,265 @@ internal class Program
                 case "5":
                     ShowSportShoeDetails(service);
                     break;
+                case "6":
+                    ReportsMenu(service,brandService,sportService,sizeService);
+                    break;
 
                 case "0":
                     return;
             }
 
         } while (true);
+    }
+
+    private static void ReportsMenu(ISportShoeService service,IBrandService brandService,ISportService sportService,ISizeService sizeService)
+    {
+        do
+        {
+            Console.Clear();
+
+            Console.WriteLine("FILTERS & REPORTS");
+            Console.WriteLine();
+
+            Console.WriteLine("1 - Filter By Brand");
+            Console.WriteLine("2 - Filter By Sport");
+            Console.WriteLine("3 - Filter By Size");
+
+            Console.WriteLine("======================");
+
+            Console.WriteLine("4 - Order By Model");
+            Console.WriteLine("5 - Order By Price");
+            Console.WriteLine("6 - Order By Brand");
+
+            Console.WriteLine("0 - Back");
+
+            var op = Console.ReadLine();
+
+            switch (op)
+            {
+                case "1":
+                    FilterByBrand( service,brandService);
+                    break;
+
+                case "2":
+                    FilterBySport(service,sportService);
+                    break;
+
+                case "3":
+                    FilterBySize(service,sizeService);
+                    break;
+
+                case "4":
+                    ShowOrderedByModel(service);
+                    break;
+
+                case "5":
+                    ShowOrderedByPrice(service);
+                    break;
+
+                case "6":
+                    ShowOrderedByBrand(service);
+                    break;
+
+                case "0":
+                    return;
+            }
+
+        } while (true);
+    }
+
+    private static void ShowOrderedByBrand(ISportShoeService service)
+    {
+        Console.Clear();
+
+        Console.WriteLine("SHOES ORDERED BY BRAND");
+        Console.WriteLine();
+
+        var result =service.OrderByBrand();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void ShowOrderedByPrice(ISportShoeService service)
+    {
+        Console.Clear();
+
+        Console.WriteLine("SHOES ORDERED BY PRICE");
+        Console.WriteLine();
+
+        var result =service.OrderByPrice();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void ShowOrderedByModel(ISportShoeService service)
+    {
+        Console.Clear();
+
+        Console.WriteLine("SHOES ORDERED BY MODEL");
+        Console.WriteLine();
+
+        var result =service.OrderByModel();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void FilterBySize(ISportShoeService service, ISizeService sizeService)
+    {
+        Console.Clear();
+
+        Console.WriteLine("FILTER SHOES BY SIZE");
+        Console.WriteLine();
+
+        ShowSizes(sizeService);
+
+        Console.WriteLine();
+
+        Console.Write("Select Size Id: ");
+
+        int sizeId = int.Parse(
+            Console.ReadLine()!);
+
+        var result =
+            service.GetBySize(sizeId);
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void ShowSizes(ISizeService sizeService)
+    {
+        var result = sizeService.GetAll();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        foreach (var size in result.Value!)
+        {
+            Console.WriteLine($"{size.SizeId,-5} | " +$"{size.Number,-10}");
+        }
+    }
+
+    private static void FilterBySport(ISportShoeService service, ISportService sportService)
+    {
+        Console.Clear();
+
+        Console.WriteLine("FILTER SHOES BY SPORT");
+        Console.WriteLine();
+
+        ShowSports(sportService);
+
+        Console.WriteLine();
+
+        Console.Write("Select Sport Id: ");
+
+        int sportId = int.Parse(Console.ReadLine()!);
+
+        var result =service.GetBySport(sportId);
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void ShowSports(ISportService sportService)
+    {
+        var result = sportService.GetAll();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        foreach (var sport in result.Value!)
+        {
+            Console.WriteLine($"{sport.SportId,-5} | " +$"{sport.SportName,-20}");
+        }
+    }
+
+    private static void FilterByBrand(ISportShoeService service, IBrandService brandService)
+    {
+        Console.Clear();
+
+        Console.WriteLine("FILTER SHOES BY BRAND");
+        Console.WriteLine();
+
+        ShowBrands(brandService);
+
+        Console.WriteLine();
+
+        Console.Write("Select Brand Id: ");
+
+        int brandId = int.Parse(Console.ReadLine()!);
+
+        var result = service.GetByBrand(brandId);
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        ShowSportShoes(result.Value!);
+
+        Console.ReadLine();
+    }
+
+    private static void ShowBrands(IBrandService brandService)
+    {
+        var result = brandService.GetAll();
+
+        if (result.IsFailure)
+        {
+            ShowErrors(result.Errors);
+            return;
+        }
+
+        foreach (var brand in result.Value!)
+        {
+            Console.WriteLine($"{brand.BrandId,-5} | " +$"{brand.BrandName,-20}");
+        }
     }
 
     private static void ShowSportShoeDetails(ISportShoeService service)
@@ -129,11 +383,9 @@ internal class Program
 
         Console.Write("Select Sport Shoe Id: ");
 
-        int id = int.Parse(
-            Console.ReadLine()!);
+        int id = int.Parse(Console.ReadLine()!);
 
-        var result =
-            service.GetDetails(id);
+        var result =service.GetDetails(id);
 
         if (result.IsFailure)
         {
@@ -327,6 +579,7 @@ internal class Program
         Console.ReadLine();
     }
 
+
     private static void ListSportShoes(ISportShoeService service)
     {
         Console.Clear();
@@ -339,6 +592,18 @@ internal class Program
             return;
         }
 
+       
+
+        Console.WriteLine(new string('-', 85));
+
+        ShowSportShoes(result.Value!);
+        
+
+        Console.ReadLine();
+    }
+
+    private static void ShowSportShoes(List<SportShoeListDto> shoes)
+    {
         Console.WriteLine(
             $"{"Id",-5} | " +
             $"{"Model",-20} | " +
@@ -349,7 +614,7 @@ internal class Program
 
         Console.WriteLine(new string('-', 85));
 
-        foreach (var shoe in result.Value!)
+        foreach (var shoe in shoes)
         {
             Console.WriteLine(
                 $"{shoe.SportShoeId,-5} | " +
@@ -359,8 +624,6 @@ internal class Program
                 $"{shoe.SizeNumber,-10} | " +
                 $"{shoe.Price,-10:C}");
         }
-
-        Console.ReadLine();
     }
 
     //ACA EMPIEZA EL MENU DE LOS TAMAÑOS

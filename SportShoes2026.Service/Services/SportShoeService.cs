@@ -4,6 +4,7 @@ using SportShoes2026.Entities;
 using SportShoes2026.Service.Common;
 using SportShoes2026.Service.DTOs.SportShoe;
 using SportShoes2026.Service.Interfaces;
+using SportShoes2026.Service.Mappers;
 
 namespace SportShoes2026.Service.Services
 {
@@ -87,20 +88,15 @@ namespace SportShoes2026.Service.Services
 
             if (!validation.IsValid)
             {
-                return Result.Failure(
-                    validation.Errors
+                return Result.Failure(validation.Errors
                         .Select(e => e.ErrorMessage)
                         .ToList());
             }
 
             if (_uow.SportShoes
-                .ExistSameSportShoe(
-                    shoe.Model,
-                    shoe.BrandId,
-                    shoe.GenreId))
+                .ExistSameSportShoe(shoe.Model,shoe.BrandId,shoe.GenreId))
             {
-                return Result.Failure(
-                    "Sport shoe already exists");
+                return Result.Failure("Sport shoe already exists");
             }
 
             try
@@ -165,8 +161,7 @@ namespace SportShoes2026.Service.Services
                 SportId = shoe.SportId
             };
 
-            return Result<SportShoeUpdateDto>
-                .Success(dto);
+            return Result<SportShoeUpdateDto>.Success(dto);
         }
 
 
@@ -178,8 +173,7 @@ namespace SportShoes2026.Service.Services
 
             if (shoe == null)
             {
-                return Result.Failure(
-                    "Sport shoe not found");
+                return Result.Failure("Sport shoe not found");
             }
 
             shoe.Model = dto.Model;
@@ -193,21 +187,18 @@ namespace SportShoes2026.Service.Services
 
             if (!validation.IsValid)
             {
-                return Result.Failure(
-                    validation.Errors
+                return Result.Failure(validation.Errors
                         .Select(e => e.ErrorMessage)
                         .ToList());
             }
 
             if (_uow.SportShoes
-                .ExistSameSportShoe(
-                    shoe.Model,
+                .ExistSameSportShoe(shoe.Model,
                     shoe.BrandId,
                     shoe.GenreId,
                     shoe.ShoeId))
             {
-                return Result.Failure(
-                    "Sport shoe already exists!!");
+                return Result.Failure("Sport shoe already exists!!");
             }
 
             try
@@ -226,6 +217,61 @@ namespace SportShoes2026.Service.Services
         {
             var genres = _uow.Genres.GetAll().ToList();
             return Result<List<Genre>>.Success(genres);
+        }
+
+        public Result<List<SportShoeListDto>> GetByBrand(int brandId)
+        {
+            var shoes = _uow.SportShoes.GetByBrand(brandId)
+            .Select(SportShoeMapper.ToListDto)
+            .ToList();
+
+            return Result<List<SportShoeListDto>>.Success(shoes);
+        }
+
+        public Result<List<SportShoeListDto>> GetBySport(int sportId)
+        {
+            var shoes = _uow.SportShoes.GetBySport(sportId)
+            .Select(SportShoeMapper.ToListDto)
+            .ToList();
+
+            return Result<List<SportShoeListDto>>.Success(shoes);
+        }
+
+        public Result<List<SportShoeListDto>> GetBySize(int sizeId)
+        {
+                var shoes = _uow.SportShoes
+                .GetBySize(sizeId)
+                .Select(SportShoeMapper.ToListDto)
+                .ToList();
+
+                return Result<List<SportShoeListDto>>.Success(shoes);
+        }
+
+        public Result<List<SportShoeListDto>> OrderByModel()
+        {
+            var shoes = _uow.SportShoes.OrderByModel()
+            .Select(SportShoeMapper.ToListDto)
+            .ToList();
+
+            return Result<List<SportShoeListDto>>.Success(shoes);
+        }
+
+        public Result<List<SportShoeListDto>> OrderByPrice()
+        {
+            var shoes = _uow.SportShoes.OrderByPrice()
+            .Select(SportShoeMapper.ToListDto)
+            .ToList();
+
+            return Result<List<SportShoeListDto>>.Success(shoes);
+        }
+        
+        public Result<List<SportShoeListDto>> OrderByBrand()
+        {
+                var shoes = _uow.SportShoes.OrderByBrand()
+               .Select(SportShoeMapper.ToListDto)
+               .ToList();
+
+            return Result<List<SportShoeListDto>>.Success(shoes);
         }
     }
 }
